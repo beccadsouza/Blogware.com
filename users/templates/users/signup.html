@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login</title>
+</head>
+<body>
+
+    <center><div>
+        <form action="/users/signup/" method="POST">
+        
+            <input id="Username" type="text" name="username">
+            <label for="Username"> Username: </label>
+            <br><br><br>
+            <input id="name" type="text" name="name">
+            <label for="name"> Name: </label>
+            <br><br><br>
+            <input id="Password" type="password" name = "password">
+            <label for="Password"> Password: </label>
+            <br><br><br>
+            <input id="RPassword" type="password" name = "rpassword">
+            <label for="RPassword"> Repeat-Password: </label>
+            <br><br><br>
+            {% csrf_token %}
+            <input type="Submit" value="Sign-up">
+        
+        </form>
+        <a href="/users/login/">login</a>
+    </div></center>
+    
+</body>
+</html>
