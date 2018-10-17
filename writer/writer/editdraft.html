@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+  <form class="" action="writer/caterreq/" method="POST">
+    <input type="text" name="Title" id="title" value="{{ doc.title }}">
+    <label for="title">Title:</label>
+    <br>
+    <br><br>
+
+    <textarea name="Body" id="body" cols="40" rows="10">{{ doc.body }}</textarea>
+    <label for="body">Body:</label>
+    <br>
+
+    <input type="image" name="thumbnail" value="Choose image">
+    <input type="Hidden" name="stance" value="{{ stance }}">
+    <input type="Hidden" value = "{{ doc.id }}" name = "doc_id">
+    {% csrf_token %}
+    <input type="Submit" value="Submit" name="{{ stance }}">
+  </form>
+
+  </body>
+</html>
