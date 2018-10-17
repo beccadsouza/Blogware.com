@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>View-Forward-Edit Drafts</title>
+</head>
+<body>
+    
+        <div>
+            
+                {% for doc in docs %}
+            <form action="/moderator/draftdetails/" method="POST">
+                <center>
+                    <img src="{{ doc.thumbnail.url }}" alt="">
+                    <br>
+                    <h1>{{ doc.title }}</h1>
+                    <br>
+                    <input type="Hidden" value = "{{ doc.id }}" name = "doc_id">
+                    {% csrf_token %}
+                    <input type="Submit" value="Approve" name ="approve">
+                    {% csrf_token %}    
+                    <input type="Submit" value="Edit" name="edit">
+        
+                    
+        
+                </center>
+
+            </form>
+        
+                {% endfor %}
+                
+        
+            </div>
+    
+</body>
+</html>

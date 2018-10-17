@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <center>
+        <form action="/moderator/edit/" method="POST">
+            <input type="text" name="Title" id="title" value="{{ doc.title }}">
+            <label for="title"></label>
+            <br>
+            <br><br>
+            
+            <textarea name="Body" id="body" cols="40" rows="10">{{ doc.body }}</textarea>
+            <label for="body">Body:</label>
+            <br>
+            <input type="Hidden" value = "{{ doc.id }}" name = "doc_id">
+            {% csrf_token %}
+            <input type="Submit" value="Update">
+        </form>
+    </center>
+    </div>
+</body>
+</html>

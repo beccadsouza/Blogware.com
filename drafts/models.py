@@ -10,7 +10,8 @@ class drafts(models.Model):
     status = models.IntegerField()
     thumbnail = models.ImageField(upload_to = 'thumbs')
     author = models.CharField(max_length = 20)
+    slug = models.SlugField()
 
 
     def __str__(self):
-        return ' '.join(list([self.title, self.body, str(self.date_of_update), str(self.date_of_publish)]))
+        return ' '.join(list([self.title, self.slug, str(self.date_of_update), str(self.date_of_publish)]))
