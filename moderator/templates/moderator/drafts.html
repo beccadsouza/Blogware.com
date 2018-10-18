@@ -7,6 +7,8 @@
     <title>View-Forward-Edit Drafts</title>
 </head>
 <body>
+
+    <a href="/users/logout/"><input type="button" value="Logout"></a>
     
         <div>
             
@@ -17,6 +19,7 @@
                     <br>
                     <h1>{{ doc.title }}</h1>
                     <br>
+                    <input type="Hidden" name="user">
                     <input type="Hidden" value = "{{ doc.id }}" name = "doc_id">
                     {% csrf_token %}
                     <input type="Submit" value="Approve" name ="approve">

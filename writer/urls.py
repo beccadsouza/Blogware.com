@@ -8,5 +8,6 @@ from django.conf import settings
 urlpatterns = [
     path(r'caterreq/', views.caterreq),
     path(r'draft/',views.draft),
+    path(r'newdraft/',views.newdraft),
     #path(r'edit/',views.edit)
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

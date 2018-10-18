@@ -21,10 +21,13 @@ from django.conf.urls.static import static
 from django.conf import settings
 from drafts import urls
 from moderator import urls
+from users import urls
+from writer import urls
 urlpatterns = [
     path(r'admin/', admin.site.urls),
     path(r'users/', include('users.urls')),
     path(r'', views.red),
     path(r'drafts/', include('drafts.urls')),
-    path(r'moderator/', include('moderator.urls'))
+    path(r'moderator/', include('moderator.urls')),
+    path(r'writer/', include('writer.urls'))
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

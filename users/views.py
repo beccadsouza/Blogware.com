@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from .models import Users,User
 import django.contrib.auth as auth
+from drafts.models import drafts
 # Create your views here.
 
 
@@ -15,7 +16,11 @@ def login(request):
         
         if u.check_password(request.POST.get('password')):
             #u.is_authenticated = True
-            return HttpResponse('login is successful')#render(request, '/writer/homepage.html')
+            if u.usertype == 'Writer':
+                return render(request, 'writer/draftsview.html', { 'docs' : drafts.objects.filter(author = request.POST.get('username'), status = 1), 'user' : request.POST.get('username') })
+            elif u.usertype == 'moderator':
+                return(render, '/moderator/drafts.html', { 'docs' : drafts.objects.filter(status = 2), 'user' : u.username })
+
         
 
         else:
