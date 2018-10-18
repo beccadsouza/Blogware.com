@@ -3,10 +3,11 @@ from django.http import HttpResponse
 from .models import Users,User
 import django.contrib.auth as auth
 from drafts.models import drafts
+from django.contrib.auth import login, logout
 # Create your views here.
 
 
-def login(request):
+def login1(request):
     if request.method == "POST":
         print("Do something")
         u = Users()
@@ -16,6 +17,7 @@ def login(request):
         
         if u.check_password(request.POST.get('password')):
             #u.is_authenticated = True
+            login(request,u)
             if u.usertype == 'Writer':
                 return render(request, 'writer/draftsview.html', { 'docs' : drafts.objects.filter(author = request.POST.get('username'), status = 1), 'user' : request.POST.get('username') })
             elif u.usertype == 'moderator':
@@ -49,5 +51,6 @@ def signup(request):
         return render(request,'users/signup.html')
 
 
-def logout(request):
+def logout1(request):
+    logout(request)
     return redirect('/users/login/')

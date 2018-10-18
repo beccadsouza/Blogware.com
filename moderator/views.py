@@ -11,14 +11,15 @@ def draftsview(request):
 def draftdetails(request):
     if request.method == 'POST':
         user = request.POST.get('user')
-        d = drafts.objects.filter(id = request.POST.get('doc_id'))
+        d = drafts.objects.filter(id = request.POST.get('doc_id'))[0]
         if "edit" in request.POST:
-            d = drafts.objects.filter(id = request.POST.get('doc_id'))
             
-            return render(request, 'moderator/editdraft.html', {'doc' : d[0], 'user' : user})
+            
+            return render(request, 'moderator/editdraft.html', {'doc' : d, 'user' : user})
         else:
-            d[0].status = 3
-            d[0].save()
+            
+            d.status = 3
+            d.save()
             return render(request,'moderator/drafts.html',{ 'docs' : drafts.objects.filter(status = 2), 'user' : user })
 
 def edit(request):

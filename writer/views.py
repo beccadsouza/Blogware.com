@@ -2,6 +2,9 @@ from django.shortcuts import render
 from drafts.models import drafts
 from users.models import Users
 import datetime
+from django.conf import settings
+from django.core.files.storage import FileSystemStorage
+
 # Create your views here.
 
 now  = datetime.datetime.now()
@@ -35,15 +38,22 @@ def caterreq(request):
             d.title = request.POST.get('Title')
             d.body = request.POST.get('Body')
             if request.POST.get('thumbnail'):
-                d.thumbnail = request.POST.get('thumbnail')
-            d.author = user
+                thumb = request.FILES['thumbnail']
+                fs = FileSystemStorage()
+                filename  = fs.save(thumb.name, thumb)
+                turl = fs.url(filename)
+                d.thumbnail = turl
             d.date_of_update = now
             d.save()
         else:
             d = drafts()
+            thumb = request.FILES['thumbnail']
+            fs = FileSystemStorage()
+            filename  = fs.save(thumb.name, thumb)
+            turl = fs.url(filename)
             d.title = request.POST.get('Title')
             d.body = request.POST.get('Body')
-            d.thumbnail = request.POST.get('thumbnail')
+            d.thumbnail.url = turl
             d.author = user
             d.status = 1
             d.date_of_update = now
