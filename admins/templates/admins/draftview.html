@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>View-Forward-Edit Drafts</title>
+</head>
+<body>
+
+    <a href="/users/logout/"><input type="button" value="Logout"></a>
+    <a href="/users/addmoderator/"><input type="button" value="Add Moderator"></a>
+    
+        <div>
+            
+                {% for doc in docs %}
+            <form action="/admins/approve/" method="POST">
+                <center>
+                    <img src="{{ doc.thumbnail.url }}" alt="">
+                    <br>
+                    <h1>{{ doc.title }}</h1>
+                    <br>
+                    <input type="Hidden" name="user">
+                    <input type="Hidden" value = "{{ doc.id }}" name = "doc_id">
+                    {% csrf_token %}
+                    <input type="Submit" value="Approve" name ="approve">
+                    {% csrf_token %}
+                    <input type="Submit" value="View" name ="approve">
+                    {% csrf_token %}    
+                    <input type="Submit" value="Discard" name="discard">
+        
+                    
+        
+                </center>
+
+            </form>
+        
+                {% endfor %}
+                
+        
+            </div>
+    
+</body>
+</html>

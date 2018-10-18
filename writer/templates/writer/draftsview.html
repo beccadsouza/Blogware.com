@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Rebecca Suxxxxx</title>
+  </head>
+  <body>
+
+    <form class="" action="/writer/newdraft/" method="POST">
+      {% csrf_token %}
+      <input type="submit" name="newdraft" value="New Draft">
+      <input type="Hidden" name="user" id="" value="{{ user }}">
+    </form>
+
+    <h2>Your Drafts <br></h2>
+
+
+    <a href="/users/logout/"><input type="button" value="Logout"></a>
+    
+
+    <center>
+      {% for doc in docs %}
+      <div class="">
+        <form class="" action="/writer/draft/" method="POST">
+          <img src="{{ doc.thumbnail.url }}" alt="">
+          <br>
+          <input type="Hidden" name="doc_id" value="{{ doc.id }}">
+          <input type="Hidden" name="user" id="" value="{{ user }}">
+          <h2>{{ doc.title }}</h2>
+          {% csrf_token %}
+          <input type="submit" name="edit" value="Edit">
+          {% csrf_token %}
+          <input type="submit" name="forward" value="Forward">
+        </form>
+      </div>
+
+      {% endfor %}
+
+    </center>
+
+  </body>
+</html>

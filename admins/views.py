@@ -9,11 +9,11 @@ def approve(request):
             d.status = 4
             d.save()
             print(request.POST.get('doc_id'))
-            return redirect('/admins/draftview/')
+            return redirect('/admins/draftsview/')
         else:
             d.status = 1
             d.save()
-            return redirect('/admins/draftview/')
+            return redirect('/admins/draftsview/')
 
 
 def draftsview(request):
