@@ -1,9 +1,15 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import get_user
 from drafts.models import drafts
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import get_user
+from users.models import Users
+
 # Create your views here.
+@login_required(login_url = '/users/login/')
+
 def approve(request):
-    if request.method == 'POST':
+    if request.method == 'POST' and Users.objects.filter(username = get_user(request).username).usertype == 'admin':
         d = drafts.objects.filter(id = request.POST.get('doc_id'))[0]
         if 'approve' in request.POST:
             d.status = 4
@@ -14,6 +20,8 @@ def approve(request):
             d.status = 1
             d.save()
             return redirect('/admins/draftsview/')
+    else:
+        return HttpResponse('You are Not Authorised to view this page')
 
 
 def draftsview(request):
@@ -21,5 +29,5 @@ def draftsview(request):
         
 
 def draftread(request):
-    if request.method == 'POST':
+    if request.method == 'POST'  and Users.objects.filter(username = get_user(request).username).usertype == 'admin':
         return render(request, '/admins/draftread.html', { 'doc' : drafts.objects.filter(id = request.POST.get('doc_id')) })

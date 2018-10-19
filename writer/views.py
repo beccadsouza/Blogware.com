@@ -1,23 +1,28 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from drafts.models import drafts
 from users.models import Users
 import datetime
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
-
-# Create your views here.
-
+from django.contrib.auth import get_user
+from django.contrib.auth.decorators import login_required
+from .forms import Newform
+from drafts.models import drafts
 now  = datetime.datetime.now()
 now = list(str(now).split())[0]
+# Create your views here.
+@login_required(login_url = '/users/login/')
+
 def draft(request):
     if request.method == "POST":
         d = drafts.objects.filter(id = request.POST.get('doc_id'))[0]
-        user = Users.objects.filter(username = request.POST.get('user'))[0]
+        user = get_user(request)
         if "forward" in request.POST:
             print('Do something')
             d.status = 2
             d.save()
-            return render(request, 'writer/draftsview.html/',{ 'docs': drafts.objects.filter(status = 1, author = user.username), 'user' : user.username})
+            return redirect('/writer/viewdrafts/')
+            #return render(request, 'writer/draftsview.html/',{ 'docs': drafts.objects.filter(status = 1, author = user.username), 'user' : user.username})
         elif "edit" in request.POST:
             print('redirect to editing document')
             return render(request, 'writer/editdraft.html/',{ 'doc' : d , 'user' : user.username, 'stance' : "edit" })
@@ -29,9 +34,9 @@ def newdraft(request):
         return render(request, 'writer/editdraft.html',{ 'user' : user, 'stance' : "new" })
 
 
-def caterreq(request):
+def caterreq(request):#addition and editing the drafts using html
     if request.method == 'POST':
-        user = request.POST.get('user')
+        user = Users.objects.filter(username = get_user(request))
         
         if request.POST.get('stance') == 'edit':
             d = drafts.objects.filter(id = request.POST.get('doc_id'))[0]
@@ -54,7 +59,7 @@ def caterreq(request):
             d.title = request.POST.get('Title')
             d.body = request.POST.get('Body')
             d.thumbnail.url = turl
-            d.author = user
+            d.author = user.username
             d.status = 1
             d.date_of_update = now
             d.date_of_publish = now
@@ -62,4 +67,34 @@ def caterreq(request):
             d.save()
 
         
-        return render(request, 'writer/draftsview.html',{ 'docs' : drafts.objects.filter(status = 1, author = user) , 'user' : user})
+        #return render(request, 'writer/draftsview.html',{ 'docs' : drafts.objects.filter(status = 1, author = user) , 'user' : user})
+        return redirect('/writer/viewdrafts/')
+
+
+
+
+
+def viewdrafts(request):
+    return render(request, 'writer/draftsview.html', { 'docs' : drafts.objects.filter(author = get_user(request).username, status = 1), 'user' : request.POST.get('username') })
+
+
+def new(request):#addition of new draft with Djangoforms
+    if request.method == 'POST':
+        print('do something')
+        d = drafts()
+        form = Newform(request.POST)
+        d.title = form.title
+        d.body = 'hfhdufghsudh'
+        d.thumbnail = form.thumb
+        d.slug = '-'.join(list(d.title.split()))
+        d.author = get_user(request).username
+        d.date_of_update = now
+        d.date_of_publish = now
+        d.save()
+        return redirect('/writers/viewdrafts/')
+        
+    else:
+        print('Working till here')
+        form = Newform()
+        return render(request,'writer/new.html/', { 'form': form })
+

@@ -5,6 +5,7 @@ import django.contrib.auth as auth
 from drafts.models import drafts
 from django.contrib.auth import login, logout,get_user
 from .models import Users
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 
@@ -22,10 +23,12 @@ def login1(request):
             login(request,u)
             print("The code runs well")
             if u.usertype == 'Writer':
-                return render(request, 'writer/draftsview.html', { 'docs' : drafts.objects.filter(author = request.POST.get('username'), status = 1), 'user' : request.POST.get('username') })
+                #return render(request, 'writer/draftsview.html', { 'docs' : drafts.objects.filter(author = request.POST.get('username'), status = 1), 'user' : request.POST.get('username') })
+                return redirect('/writer/viewdrafts/')
             elif u.usertype == 'moderator':
                 print("The code runs well")
-                return render(request, 'moderator/drafts.html', { 'docs' : drafts.objects.filter(status = 2), 'user' : u.username })
+                return redirect('/moderator/draftsview/')
+                #return render(request, 'moderator/drafts.html', { 'docs' : drafts.objects.filter(status = 2), 'user' : u.username })
             else:
                 return redirect('/admins/draftsview')
 
@@ -56,7 +59,7 @@ def signup(request):
     else:
         return render(request,'users/signup.html')
 
-
+@login_required(login_url = '/users/login')
 def addmoderator(request):
     if Users.objects.filter(username = get_user(request).username)[0].usertype != 'admin':
         return redirect('/drafts/articleview/')

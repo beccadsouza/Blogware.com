@@ -1,6 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from drafts.models import drafts
+from django.contrib.auth.decorators import login_required
 # Create your views here.
+
+
+@login_required(login_url = '/users/login/')
 
 def draftsview(request):
     d = drafts.objects.filter(status = 2)
@@ -20,7 +24,9 @@ def draftdetails(request):
             
             d.status = 3
             d.save()
-            return render(request,'moderator/drafts.html',{ 'docs' : drafts.objects.filter(status = 2), 'user' : user })
+            return redirect('/moderator/draftsview')
+            #return render(request,'moderator/drafts.html',{ 'docs' : drafts.objects.filter(status = 2), 'user' : user })
+
 
 def edit(request):
     if request.method == 'POST':
@@ -31,4 +37,5 @@ def edit(request):
         d.body = request.POST.get('Body')
         print(request.POST.get('Body'))
         d.save()
-        return render(request, 'moderator/drafts.html', {'docs' : drafts.objects.filter(status = 2), 'user' : user})
+        return redirect('/moderator/draftsview')
+        #return render(request, 'moderator/drafts.html', {'docs' : drafts.objects.filter(status = 2), 'user' : user})
