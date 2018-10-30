@@ -6,12 +6,12 @@
   </head>
   <body>
   <form class="" action="/writer/caterreq/" method="POST">
-    <input type="text" name="Title" id="title" value="{{ doc.title }}">
+    <input type="text" name="Title" id="title" value="{{ doc.title }}" required>
     <label for="title">Title:</label>
     <br>
     <br><br>
 
-    <textarea name="Body" id="body" cols="40" rows="10">{{ doc.body }}</textarea>
+    <textarea name="Body" id="body" cols="40" rows="10" required>{{ doc.body }}</textarea>
     <label for="body">Body:</label>
     <br>
 
@@ -23,6 +23,6 @@
     {% csrf_token %}
     <input type="Submit" value="Submit" name="{{ stance }}">
   </form>
-
+  <p>{{ message }}</p>
   </body>
 </html>
