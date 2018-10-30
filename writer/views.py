@@ -36,29 +36,19 @@ def newdraft(request):
 
 def caterreq(request):#addition and editing the drafts using html
     if request.method == 'POST':
-        user = Users.objects.filter(username = get_user(request))
+        user = Users.objects.filter(username = get_user(request))[0]
         
         if request.POST.get('stance') == 'edit':
             d = drafts.objects.filter(id = request.POST.get('doc_id'))[0]
             d.title = request.POST.get('Title')
             d.body = request.POST.get('Body')
-            if request.POST.get('thumbnail'):
-                thumb = request.FILES['thumbnail']
-                fs = FileSystemStorage()
-                filename  = fs.save(thumb.name, thumb)
-                turl = fs.url(filename)
-                d.thumbnail = turl
             d.date_of_update = now
             d.save()
         else:
             d = drafts()
-            thumb = request.FILES['thumbnail']
-            fs = FileSystemStorage()
-            filename  = fs.save(thumb.name, thumb)
-            turl = fs.url(filename)
             d.title = request.POST.get('Title')
             d.body = request.POST.get('Body')
-            d.thumbnail.url = turl
+            d.thumbnail = drafts.objects.filter(title = '2016130024')[0].thumbnail
             d.author = user.username
             d.status = 1
             d.date_of_update = now

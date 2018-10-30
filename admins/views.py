@@ -9,7 +9,7 @@ from users.models import Users
 @login_required(login_url = '/users/login/')
 
 def approve(request):
-    if request.method == 'POST' and Users.objects.filter(username = get_user(request).username).usertype == 'admin':
+    if request.method == 'POST' and Users.objects.filter(username = get_user(request).username)[0].usertype == 'admin':
         d = drafts.objects.filter(id = request.POST.get('doc_id'))[0]
         if 'approve' in request.POST:
             d.status = 4

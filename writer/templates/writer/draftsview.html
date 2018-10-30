@@ -25,7 +25,7 @@
       {% for doc in docs %}
       <div class="">
         <form class="" action="/writer/draft/" method="POST">
-          <img src="{{ doc.thumbnail.url }}" alt="">
+          <img src="{{ doc.thumbnail.url }}" alt="" width="240px"
           <br>
           <input type="Hidden" name="doc_id" value="{{ doc.id }}">
           <input type="Hidden" name="user" id="" value="{{ user }}">
