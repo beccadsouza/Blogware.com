@@ -21,7 +21,7 @@
     <input type="Hidden" name="stance" value="{{ stance }}">
     <input type="Hidden" value = "{{ doc.id }}" name = "doc_id">
     {% csrf_token %}
-    <input type="Submit" value="Submit" name="{{ stance }}">
+    <button type="Submit" value="Submit" name="{{ stance }}">Submit</button>
   </form>
   <p>{{ message }}</p>
   </body>
