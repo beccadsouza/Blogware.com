@@ -15,7 +15,7 @@
         <center>
             <img src="{{ doc.thumbnail.url }}" alt="" width = "240px">
             <br>
-            <h1>{{ doc.title }}</h1>
+            <a href = "{% url 'drafts:details' slug=doc.slug %}" ><h1>{{ doc.title }}</h1></a>
             <br>
 
             

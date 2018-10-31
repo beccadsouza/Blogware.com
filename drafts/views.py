@@ -9,5 +9,6 @@ def articledisp(request):
         'docs' : draft
      })
     
-def articleview(request):
-    print('This is ship')
+def articleview(request,slug):
+    d = drafts.objects.get(slug = slug)
+    return render(request,'drafts/articleview.html',{'doc' : d})
