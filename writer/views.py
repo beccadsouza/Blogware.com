@@ -42,6 +42,13 @@ def caterreq(request):#addition and editing the drafts using html
         
         if request.POST.get('stance') == 'edit':
             d = drafts.objects.filter(id = request.POST.get('doc_id'))[0]
+            if d.title != request.POST.get('Title'):
+                temp = drafts.objects.filter(title = request.POST.get('Title')).order_by('-slug')
+                snum = 1
+                if temp:
+                    slist = list(temp[0].slug.split('-'))
+                    snum = int(slist[len(slist) - 1]) + 1
+                d.slug = '-'.join(list(request.POST.get('Title').split())) + '-' + str(snum)
             d.title = request.POST.get('Title')
             d.body = request.POST.get('Body')
             d.date_of_update = now
@@ -51,12 +58,12 @@ def caterreq(request):#addition and editing the drafts using html
             d.title = request.POST.get('Title')
             d.body = request.POST.get('Body')
             d.thumbnail = drafts.objects.filter(title = '2016130024')[0].thumbnail
-            temp = drafts.objects.filter(title = request.POST.get('Title')).order_by('-slug')
             d.author = user.username
             d.status = 1
             d.date_of_update = now
             d.date_of_publish = now
             snum = 1
+            temp = drafts.objects.filter(title = request.POST.get('Title')).order_by('-slug')
             if temp:
                 slist = list(temp[0].slug.split('-'))
                 snum = int(slist[len(slist) - 1]) + 1
