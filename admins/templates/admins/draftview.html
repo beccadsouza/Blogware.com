@@ -110,16 +110,6 @@
                     <input type="Hidden" value = "{{ doc.id }}" name = "doc_id">
                     <div class="row">
                         <div class="card-action" style="margin-left:-10px;padding-bottom: 30px;">
-{#                            <a href="{% url 'drafts:details' slug=doc.slug %}">#}
-{#                                <button class="btn waves-effect white teal-text col s12 m4 z-depth-0">#}
-{#                                    <i class="material-icons" style="vertical-align:middle !important;padding-bottom: 5px;">#}
-{#                                        library_books#}
-{#                                    </i>#}
-{#                                    <span style="font-size: larger">#}
-{#                                        review#}
-{#                                    </span>#}
-{#                                </button>#}
-{#                            </a>#}
                             {% csrf_token %}
                             <button class="btn waves-effect white teal-text col s12 m4 z-depth-0" type="submit" value="Approve" name ="approve">
                                 <i class="material-icons" style="vertical-align:middle !important;padding-bottom: 5px">
