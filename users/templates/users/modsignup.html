@@ -123,6 +123,7 @@
 
     <body background="{% static 'constellations.gif' %}" style="font-family: Lora;margin: 60px;background-repeat: no-repeat;background-position: center;background-size: cover">
 
+<<<<<<< HEAD
         <div class="container">
             <div class="row" style="width: 50%;padding: 30px;background-color: rgba(255,255,255,0.6)">
                 <br><br>
@@ -202,4 +203,74 @@
           }
         </script>
     </body>
+=======
+
+
+    <center><div>
+        <form action="/users/addmoderator/" method="POST" onsubmit="return checkForm(this);">
+        
+            <input id="Username" type="text" name="username" required value="{{username}}">
+            <label for="Username"> Username: </label>
+            <br><br><br>
+            <input id="name" type="text" name="name" required value="{{name}}">
+            <label for="name"> Name: </label>
+            <br><br><br>
+            <input id="Password" type="password" name = "password" required>
+            <label for="Password"> Password: </label>
+            <br><br><br>
+            <input id="RPassword" type="password" name = "rpassword" required>
+            <label for="RPassword"> Repeat-Password: </label>
+            <br><br><br>
+            {% csrf_token %}
+            <button type="Submit" value="Sign-up">Sign-Up</button>
+        
+        </form>
+        <p>{{ message }}</p>
+        
+    </div></center>
+
+
+<script type="text/javascript">
+
+  function checkPassword(str)
+  {
+    var re = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
+    //return re.test(str);
+      if(str.length < 8)
+          return false;
+      else
+          return true;
+  }
+
+  function checkForm(form)
+  {
+    if(form.username.value == "") {
+      alert("Error: Username cannot be blank!");
+      form.username.focus();
+      return false;
+    }
+    re = /^\w+$/;
+    if(!re.test(form.username.value)) {
+      alert("Error: Username must contain only letters, numbers and underscores!");
+      form.username.focus();
+      return false;
+    }
+    if(form.password.value != "" && form.password.value == form.rpassword.value) {
+      if(!checkPassword(form.password.value)) {
+        alert("The password you have entered is not valid!");
+        form.password.focus();
+        return false;
+      }
+    } else {
+      alert("Error: Please check that you've entered and confirmed your password!");
+      form.password.focus();
+      return false;
+    }
+    return true;
+  }
+
+</script>
+    
+</body>
+>>>>>>> 6c847e537e8cae4c2937084a66ce15de9490ce0c
 </html>
