@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,HttpResponse
 from django.contrib.auth import get_user
 from drafts.models import drafts
 from django.contrib.auth.decorators import login_required

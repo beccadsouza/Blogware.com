@@ -1,40 +1,173 @@
-<!DOCTYPE html>
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <meta name="viewport" content="width=device-width, initial-scale=1.0">#}
+{#    <meta http-equiv="X-UA-Compatible" content="ie=edge">#}
+{#    <title>Login</title>#}
+{#</head>#}
+{#<body>#}
+{##}
+{#    <center><div>#}
+{#        <form action="/users/signup/" method="POST" onsubmit="return checkForm(this);">#}
+{#        #}
+{#            <input id="Username" type="text" name="username" required value="{{username}}">#}
+{#            <label for="Username"> Username: </label>#}
+{#            <br><br><br>#}
+{#            <input id="name" type="text" name="name" required value="{{name}}">#}
+{#            <label for="name"> Name: </label>#}
+{#            <br><br><br>#}
+{#            <input id="Password" type="password" name = "password" required>#}
+{#            <label for="Password"> Password: </label>#}
+{#            <br><br><br>#}
+{#            <input id="RPassword" type="password" name = "rpassword" required>#}
+{#            <label for="RPassword"> Repeat-Password: </label>#}
+{#            <br><br><br>#}
+{#            {% csrf_token %}#}
+{#            <button type="Submit" value="Sign-up">Sign-up</button>#}
+{#        #}
+{#        </form>#}
+{#        <p>{{ message }}</p>#}
+{#        <a href="/users/login/">login</a>#}
+{#    </div></center>#}
+{##}
+{#<script type="text/javascript">#}
+{##}
+{#  function checkPassword(str)#}
+{#  {#}
+{#    var re = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$/;#}
+{#    //return re.test(str);#}
+{#      if(str.length < 8)#}
+{#          return false;#}
+{#      else#}
+{#          return true;#}
+{#  }#}
+{##}
+{#  function checkForm(form)#}
+{#  {#}
+{#    if(form.username.value == "") {#}
+{#      alert("Error: Username cannot be blank!");#}
+{#      form.username.focus();#}
+{#      return false;#}
+{#    }#}
+{#    re = /^\w+$/;#}
+{#    if(!re.test(form.username.value)) {#}
+{#      alert("Error: Username must contain only letters, numbers and underscores!");#}
+{#      form.username.focus();#}
+{#      return false;#}
+{#    }#}
+{#    if(form.password.value != "" && form.password.value == form.rpassword.value) {#}
+{#      if(!checkPassword(form.password.value)) {#}
+{#        alert("The password you have entered is not valid!(Length Less than 8)");#}
+{#        form.password.focus();#}
+{#        return false;#}
+{#      }#}
+{#    } else {#}
+{#      alert("Error: Please check that you've entered and confirmed your password!");#}
+{#      form.password.focus();#}
+{#      return false;#}
+{#    }#}
+{#    return true;#}
+{#  }#}
+{##}
+{#</script>#}
+{#</body>#}
+{#</html>#}
+
+{% load static from staticfiles %}
+
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Login</title>
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Login</title>
 
-    <center><div>
-        <form action="/users/signup/" method="POST" onsubmit="return checkForm(this);">
-        
-            <input id="Username" type="text" name="username" required value="{{username}}">
-            <label for="Username"> Username: </label>
-            <br><br><br>
-            <input id="name" type="text" name="name" required value="{{name}}">
-            <label for="name"> Name: </label>
-            <br><br><br>
-            <input id="Password" type="password" name = "password" required>
-            <label for="Password"> Password: </label>
-            <br><br><br>
-            <input id="RPassword" type="password" name = "rpassword" required>
-            <label for="RPassword"> Repeat-Password: </label>
-            <br><br><br>
-            {% csrf_token %}
-            <button type="Submit" value="Sign-up">Sign-up</button>
-        
-        </form>
-        <p>{{ message }}</p>
-        <a href="/users/login/">login</a>
-    </div></center>
+        <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Lora'>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <style>
 
-<script type="text/javascript">
+            .input-field label {
+                color: rgba(27,11,40,0.7);
+            }
+            .input-field input[type=text]{
+                border-bottom: 1px solid rgba(27,11,40,0.5);
+                box-shadow: 0 1px 0 0 rgba(27,11,40,0.7);
+            }
+            .input-field input[type=password]{
+                border-bottom: 1px solid rgba(27,11,40,0.5);
+                box-shadow: 0 1px 0 0 rgba(27,11,40,0.7);
+            }
+            .input-field .prefix {
+                color: rgba(27,11,40,0.7);
+            }
 
-  function checkPassword(str)
-  {
+            .input-field input:focus + label {
+                color: darkslateblue !important;
+            }
+            .row .input-field input:focus {
+                border-bottom: 1px solid darkslateblue !important;
+                box-shadow: 0 1px 0 0 darkslateblue !important
+            }
+            .input-field .prefix.active {
+                color: darkslateblue; !important;
+            }
+        </style>
+    </head>
+
+    <body background="{%  static 'constellations.gif' %}" style="font-family: Lora;margin: 60px;background-repeat: no-repeat;background-position: center;background-size: cover">
+
+        <div class="container">
+            <div class="row" style="width: 50%;padding: 30px;background-color: rgba(255,255,255,0.6)">
+                <br><br>
+                <div style="text-align: center;">
+                    <form >
+                        <div class="row">
+                            <div class="input-field">
+                                <i class="material-icons prefix">account_circle</i>
+                                <input id="Name" type="text" class="validate">
+                                <label for="Name">Full Name</label>
+                            </div>
+                            <br>
+                            <div class="input-field">
+                                <i class="material-icons prefix">face</i>
+                                <input id="Username" type="text" class="validate">
+                                <label for="Username">Username</label>
+                            </div>
+                            <br>
+                            <div class="input-field">
+                                <i class="material-icons prefix">enhanced_encryption</i>
+                                <input id="Password" type="password" class="validate">
+                                <label for="Password">Password</label>
+                            </div>
+                            <br>
+                            <div class="input-field">
+                                <i class="material-icons prefix">enhanced_encryption</i>
+                                <input id="RPassword" type="password" class="validate">
+                                <label for="RPassword">Repeat Password</label>
+                            </div>
+                            <br>
+                        </div>
+                        <button class="waves-effect waves-light btn" style="background-color: rgba(27,11,40,0.8);" type="submit" name="edit" value="Edit">
+                            <span>
+                                Sign Up
+                            </span>
+                            <i class="material-icons right" style="vertical-align:middle !important;padding-bottom: 5px;">
+                                send
+                            </i>
+                        </button>
+                        <br><br>
+                        <a href="#" class="black-text">Already a user? Log in <span style="color: darkslateblue"> here</span></a>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            function checkPassword(str) {
     var re = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
     //return re.test(str);
       if(str.length < 8)
@@ -42,9 +175,7 @@
       else
           return true;
   }
-
-  function checkForm(form)
-  {
+            function checkForm(form) {
     if(form.username.value == "") {
       alert("Error: Username cannot be blank!");
       form.username.focus();
@@ -69,7 +200,7 @@
     }
     return true;
   }
+        </script>
 
-</script>
-</body>
+    </body>
 </html>

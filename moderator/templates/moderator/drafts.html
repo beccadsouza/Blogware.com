@@ -1,41 +1,130 @@
-<!DOCTYPE html>
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <meta name="viewport" content="width=device-width, initial-scale=1.0">#}
+{#    <meta http-equiv="X-UA-Compatible" content="ie=edge">#}
+{#    <title>View-Forward-Edit Drafts</title>#}
+{#</head>#}
+{#<body>#}
+{##}
+{#    <a href="/users/logout/"><input type="button" value="Logout"></a>#}
+{#    #}
+{#        <div>#}
+{#            #}
+{#                {% for doc in docs %}#}
+{#            <form action="/moderator/draftdetails/" method="POST">#}
+{#                <center>#}
+{#                    <img src="{{ doc.thumbnail.url }}" alt=""  width="640px" height="480px">#}
+{#                    <br>#}
+{#                    <a href = "{% url 'drafts:details' slug=doc.slug %}" ><h1>{{ doc.title }}</h1></a>#}
+{#                    <br>#}
+{#                    <input type="Hidden" name="user">#}
+{#                    <input type="Hidden" value = "{{ doc.id }}" name = "doc_id">#}
+{#                    {% csrf_token %}#}
+{#                    <button type="Submit" value="Approve" name ="approve">Approve</button>#}
+{#                    {% csrf_token %}    #}
+{#                    <button type="Submit" value="Edit" name="edit">Edit</button>#}
+{#        #}
+{#                    #}
+{#        #}
+{#                </center>#}
+{##}
+{#            </form>#}
+{#        #}
+{#                {% endfor %}#}
+{#                #}
+{#        #}
+{#            </div>#}
+{#    #}
+{#</body>#}
+{#</html>#}
+
+{% load static from staticfiles  %}
+
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>View-Forward-Edit Drafts</title>
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Moderator</title>
 
-    <a href="/users/logout/"><input type="button" value="Logout"></a>
-    
-        <div>
-            
-                {% for doc in docs %}
+        <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Lora'>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    </head>
+
+    <body background="{% static 'dashboard.png' %}" style="margin: 60px;font-family: Lora">
+        <a href="/users/logout/">
+            <button class="btn right" style="border-radius: 6px">
+                <span style="color: white">
+                    <i class="material-icons" style="vertical-align:middle !important;padding-bottom: 5px;">
+                        exit_to_app
+                    </i>
+                    Logout
+                </span>
+            </button>
+        </a>
+
+        <div class="row">
+            <h4 style="color: #2cc8b9">
+                Howdy Jane,
+                there's a list of drafts awaiting you..
+                <i class="material-icons" style="font-size: 30px;vertical-align:middle !important;">gesture</i>
+            </h4>
+        </div>
+
+        <div class="row">
+            <!-----------------MODERATOR-------------->
+            {% for doc in docs %}
+
             <form action="/moderator/draftdetails/" method="POST">
-                <center>
-                    <img src="{{ doc.thumbnail.url }}" alt=""  width="640px" height="480px">
-                    <br>
-                    <a href = "{% url 'drafts:details' slug=doc.slug %}" ><h1>{{ doc.title }}</h1></a>
-                    <br>
-                    <input type="Hidden" name="user">
+            <div class="col s12 m4 cards-container">
+                <div class="card">
+                    <div class="card-image">
+                        <img src="{% static 'image.jpg' %}">
+                        <a class="btn-floating btn-large halfway-fab right teal z-depth-0">
+                            <i class="material-icons">notifications_active</i>
+                        </a>
+                    </div>
+                    <div class="card-content">
+                        <a href = "{% url 'drafts:details' slug=doc.slug %}">
+                            <span class="card-title">{{ doc.title }}</span>
+                        </a>
+                        <p style="text-align: justify">
+                            You’re probably reading this article via the good old internet, however at this very moment 4.3 billion people don’t have any sort of access to the World Wide Web.  While Europe has a connection rate …
+                        </p>
+                    </div>
                     <input type="Hidden" value = "{{ doc.id }}" name = "doc_id">
-                    {% csrf_token %}
-                    <button type="Submit" value="Approve" name ="approve">Approve</button>
-                    {% csrf_token %}    
-                    <button type="Submit" value="Edit" name="edit">Edit</button>
-        
-                    
-        
-                </center>
-
-            </form>
-        
-                {% endfor %}
-                
-        
+                    <div class="row">
+                        <div class="card-action" style="margin-left: 30px;padding-bottom: 30px;">
+                            {% csrf_token %}
+                            <button class="btn waves-effect white teal-text col s12 m5 z-depth-0" type="submit" value="Edit" name="edit">
+                                <i class="material-icons" style="vertical-align:middle !important;padding-bottom: 5px;">
+                                    build
+                                </i>
+                                <span style="font-size: larger">
+                                    Modify
+                                </span>
+                            </button>
+                            {% csrf_token %}
+                            <button class="btn waves-effect white teal-text col s12 m5 z-depth-0" type="submit" value="Approve" name ="approve">
+                                <i class="material-icons" style="vertical-align:middle !important;padding-bottom: 5px">
+                                    thumb_up_alt
+                                </i>
+                                <span style="font-size: larger;">
+                                    Approve
+                                </span>
+                            </button>
+                        </div>
+                        <br>
+                    </div>
+                </div>
             </div>
-    
-</body>
+            </form>
+            {% endfor %}
+        </div>
+    </body>
 </html>

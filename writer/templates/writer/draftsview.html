@@ -1,47 +1,146 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Rebecca Suxxxxx</title>
-  </head>
-  <body>
+{#<!DOCTYPE html>#}
+{#<html lang="en" dir="ltr">#}
+{#  <head>#}
+{#    <meta charset="utf-8">#}
+{#    <title>Rebecca Suxxxxx</title>#}
+{#  </head>#}
+{#  <body>#}
+{##}
+{#    <form class="" action="/writer/newdraft/" method="POST">#}
+{#      {% csrf_token %}#}
+{#      <input type="submit" name="newdraft" value="New Draft">#}
+{#      <input type="Hidden" name="user" id="" value="{{ user }}">#}
+{#    </form>#}
+{##}
+{#    <a href="/writer/newdraft/"><input type="button" name="newdraft" value="click Here"></a>#}
+{#    #}
+{##}
+{#    <h2>Your Drafts <br></h2>#}
+{##}
+{##}
+{#    <a href="/users/logout/"><input type="button" value="Logout"></a>#}
+{#    #}
+{##}
+{#    <center>#}
+{#      {% for doc in docs %}#}
+{#      <div class="">#}
+{#        <form class="" action="/writer/draft/" method="POST">#}
+{#          <img src="{{ doc.thumbnail.url }}" alt="" width="240px"#}
+{#          <br>#}
+{#          <input type="Hidden" name="doc_id" value="{{ doc.id }}">#}
+{#          <input type="Hidden" name="user" id="" value="{{ user }}">#}
+{#          <a href = "{% url 'drafts:details' slug=doc.slug %}" ><h2>{{ doc.title }}</h2></a>#}
+{#          {% csrf_token %}#}
+{#          <button type="submit" name="edit" value="Edit">Edit </button>#}
+{#          {% csrf_token %}#}
+{#          <button type="submit" name="forward" value="Forward">Forward</button>#}
+{#          {% csrf_token %}#}
+{#          <button type="submit" name="delete" value="Delete">Delete</button>#}
+{#        </form>#}
+{#      </div>#}
+{##}
+{#      {% endfor %}#}
+{##}
+{#    </center>#}
+{##}
+{#  </body>#}
+{#</html>#}
 
-    <form class="" action="/writer/newdraft/" method="POST">
-      {% csrf_token %}
-      <input type="submit" name="newdraft" value="New Draft">
-      <input type="Hidden" name="user" id="" value="{{ user }}">
-    </form>
+{% load static from staticfiles %}
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Writer</title>
 
-    <a href="/writer/newdraft/"><input type="button" name="newdraft" value="click Here"></a>
-    
+        <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Lora'>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    </head>
 
-    <h2>Your Drafts <br></h2>
+    <body background="{% static 'dashboard.png' %}" style="margin: 60px;font-family: Lora">
+        <a href="/users/logout/">
+            <button class="btn right" style="border-radius: 6px">
+                <span style="color: white">
+                    <i class="material-icons" style="vertical-align:middle !important;padding-bottom: 5px;">
+                        exit_to_app
+                    </i>
+                    Logout
+                </span>
+            </button>
+        </a>
 
-
-    <a href="/users/logout/"><input type="button" value="Logout"></a>
-    
-
-    <center>
-      {% for doc in docs %}
-      <div class="">
-        <form class="" action="/writer/draft/" method="POST">
-          <img src="{{ doc.thumbnail.url }}" alt="" width="240px"
-          <br>
-          <input type="Hidden" name="doc_id" value="{{ doc.id }}">
-          <input type="Hidden" name="user" id="" value="{{ user }}">
-          <a href = "{% url 'drafts:details' slug=doc.slug %}" ><h2>{{ doc.title }}</h2></a>
-          {% csrf_token %}
-          <button type="submit" name="edit" value="Edit">Edit </button>
-          {% csrf_token %}
-          <button type="submit" name="forward" value="Forward">Forward</button>
-          {% csrf_token %}
-          <button type="submit" name="delete" value="Delete">Delete</button>
+        <form class="" action="/writer/newdraft/" method="POST">
+            {% csrf_token %}
+            <button class="btn right" style="border-radius: 6px;margin-right: 20px" type="submit" name="newdraft" value="New Draft">
+                <span style="color: white">
+                    <i class="material-icons" style="vertical-align:middle !important;padding-bottom: 5px;">
+                        add_box
+                    </i>
+                    New Draft
+                </span>
+            </button>
+            <input type="Hidden" name="user" id="" value="{{ user }}">
         </form>
-      </div>
 
-      {% endfor %}
 
-    </center>
+        <div class="row">
+            <h4 style="color: #2cc8b9">
+                Howdy Jane,
+                tis a great day to pen a draft
+                <i class="material-icons" style="font-size: 30px;vertical-align:middle !important;">gesture</i>
+            </h4>
+        </div>
 
-  </body>
+        <div class="row">
+            <!------------------WRITER---------------->
+            {% for doc in docs %}
+            <form class="" action="/writer/draft/" method="POST">
+            <div class="col s12 m4 cards-container">
+                <div class="card">
+                    <div class="card-image">
+                        <img src="{% static 'image.jpg' %}" >
+                        <input type="Hidden" name="doc_id" value="{{ doc.id }}">
+                        <a class="btn-floating btn-large halfway-fab right teal z-depth-0">
+                            <i class="material-icons">insert_drive_file</i>
+                        </a>
+                    </div>
+                    <div class="card-content">
+                        <a href = "{% url 'drafts:details' slug=doc.slug %}" ><span class="card-title">{{ doc.title }}</span></a>
+                        <p style="text-align: justify">
+                            You’re probably reading this article via the good old internet, however at this very moment 4.3 billion people don’t have any sort of access to the World Wide Web.  While Europe has a connection rate …
+                        </p>
+                    </div>
+                    <div class="row">
+                        <div class="card-action" style="margin-left: 30px;padding-bottom: 30px;">
+                            {% csrf_token %}
+                            <button class="btn waves-effect white teal-text col s12 m5 z-depth-0" type="submit" name="edit" value="Edit">
+                                <i class="material-icons" style="vertical-align:middle !important;padding-bottom: 5px;">
+                                    create
+                                </i>
+                                <span style="font-size: larger">
+                                    Edit Draft
+                                </span>
+                            </button>
+                            {% csrf_token %}
+                            <button class="btn waves-effect white teal-text col s12 m5 z-depth-0" type="submit" name="forward" value="Forward">
+                                <i class="material-icons" style="vertical-align:middle !important;padding-bottom: 5px">
+                                    forward
+                                </i>
+                                <span style="font-size: larger;">
+                                    Forward
+                                </span>
+                            </button>
+                        </div>
+                        <br>
+                    </div>
+                </div>
+            </div>
+            </form>
+            {% endfor %}
+        </div>
+    </body>
 </html>

@@ -17,25 +17,22 @@ def login1(request):
         u = list(Users.objects.filter(username = request.POST.get('username')))
         if u:
             u = u[0]
-        print("The code runs well")
-        
-        if u.check_password(request.POST.get('password')):
-            #u.is_authenticated = True
-            print("Do something")
-            login(request,u)
             print("The code runs well")
-            if u.usertype == 'Writer':
-                #return render(request, 'writer/draftsview.html', { 'docs' : drafts.objects.filter(author = request.POST.get('username'), status = 1), 'user' : request.POST.get('username') })
-                return redirect('/writer/viewdrafts/')
-            elif u.usertype == 'moderator':
-                print("The code runs well")
-                return redirect('/moderator/draftsview/')
-                #return render(request, 'moderator/drafts.html', { 'docs' : drafts.objects.filter(status = 2), 'user' : u.username })
-            else:
-                return redirect('/admins/draftsview')
-
         
-
+            if u.check_password(request.POST.get('password')):
+                #u.is_authenticated = True
+                print("Do something")
+                login(request,u)
+                print("The code runs well")
+                if u.usertype == 'Writer':
+                    #return render(request, 'writer/draftsview.html', { 'docs' : drafts.objects.filter(author = request.POST.get('username'), status = 1), 'user' : request.POST.get('username') })
+                    return redirect('/writer/viewdrafts/')
+                elif u.usertype == 'moderator':
+                    print("The code runs well")
+                    return redirect('/moderator/draftsview/')
+                    #return render(request, 'moderator/drafts.html', { 'docs' : drafts.objects.filter(status = 2), 'user' : u.username })
+                else:
+                    return redirect('/admins/draftsview')
         else:
             return redirect('/users/login/')
 

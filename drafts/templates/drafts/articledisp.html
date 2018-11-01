@@ -13,7 +13,7 @@
     <div>
         {% for doc in docs %}
         <center>
-            <img src="{{ doc.thumbnail.url }}" alt="" width = "240px">
+            <img src="{{ doc.thumbnail.url }}" alt=""  width="640px" height="480px">
             <br>
             <a href = "{% url 'drafts:details' slug=doc.slug %}" ><h1>{{ doc.title }}</h1></a>
             <br>
