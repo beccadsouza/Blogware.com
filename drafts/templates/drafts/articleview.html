@@ -14,7 +14,9 @@
             <img src="{{ doc.thumbnail.url }}" alt="" width="640px" height="480px">
 
             <p>
-                {{ doc.body }}
+                {% for i in body1 %}
+                {{ i }}<br>
+                {% endfor %}
             </p>
         </center>
     </div>

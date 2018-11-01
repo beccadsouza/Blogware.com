@@ -11,4 +11,5 @@ def articledisp(request):
     
 def articleview(request,slug):
     d = drafts.objects.get(slug = slug)
-    return render(request,'drafts/articleview.html',{'doc' : d})
+    bodylist = list(d.body.split('\n'))
+    return render(request,'drafts/articleview.html',{'doc' : d , 'body1' : bodylist})
