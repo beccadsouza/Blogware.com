@@ -11,14 +11,14 @@
     <center><div>
         <form action="/users/login/" method="POST">
         
-            <input id="Username" type="text" name="username">
+            <input id="Username" type="text" name="username" required>
             <label for="Username"> Username: </label>
             <br><br><br>
-            <input id="Password" type="password" name = "password">
+            <input id="Password" type="password" name = "password" required>
             <label for="Password"> Password: </label>
             <br><br><br>
             {% csrf_token %}
-            <input type="Submit" value="Log-in">
+            <button type="Submit" value="Log-in">Log-In</button>
         
         </form>
         <a href="/users/signup/">Sign-up</a>

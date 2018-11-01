@@ -26,7 +26,9 @@ def draft(request):
         elif "edit" in request.POST:
             print('redirect to editing document')
             return render(request, 'writer/editdraft.html/',{ 'doc' : d , 'user' : user.username, 'stance' : "edit" })
-
+        else:
+            drafts.objects.filter(id = request.POST.get('doc_id')).delete()
+            return redirect('/writer/viewdrafts')
 
 def newdraft(request):
     if request.method == 'POST':
@@ -36,34 +38,36 @@ def newdraft(request):
 
 def caterreq(request):#addition and editing the drafts using html
     if request.method == 'POST':
-        user = Users.objects.filter(username = get_user(request))
+        user = Users.objects.filter(username = get_user(request))[0]
         
         if request.POST.get('stance') == 'edit':
             d = drafts.objects.filter(id = request.POST.get('doc_id'))[0]
+            if d.title != request.POST.get('Title'):
+                temp = drafts.objects.filter(title = request.POST.get('Title')).order_by('-slug')
+                snum = 1
+                if temp:
+                    slist = list(temp[0].slug.split('-'))
+                    snum = int(slist[len(slist) - 1]) + 1
+                d.slug = '-'.join(list(request.POST.get('Title').split())) + '-' + str(snum)
             d.title = request.POST.get('Title')
             d.body = request.POST.get('Body')
-            if request.POST.get('thumbnail'):
-                thumb = request.FILES['thumbnail']
-                fs = FileSystemStorage()
-                filename  = fs.save(thumb.name, thumb)
-                turl = fs.url(filename)
-                d.thumbnail = turl
             d.date_of_update = now
             d.save()
         else:
             d = drafts()
-            thumb = request.FILES['thumbnail']
-            fs = FileSystemStorage()
-            filename  = fs.save(thumb.name, thumb)
-            turl = fs.url(filename)
             d.title = request.POST.get('Title')
             d.body = request.POST.get('Body')
-            d.thumbnail.url = turl
+            d.thumbnail = drafts.objects.filter(title = '2016130024')[0].thumbnail
             d.author = user.username
             d.status = 1
             d.date_of_update = now
             d.date_of_publish = now
-            d.slug = '-'.join(list(d.title.split()))
+            snum = 1
+            temp = drafts.objects.filter(title = request.POST.get('Title')).order_by('-slug')
+            if temp:
+                slist = list(temp[0].slug.split('-'))
+                snum = int(slist[len(slist) - 1]) + 1
+            d.slug = '-'.join(list(d.title.split())) + '-' + str(snum)
             d.save()
 
         

@@ -25,15 +25,17 @@
       {% for doc in docs %}
       <div class="">
         <form class="" action="/writer/draft/" method="POST">
-          <img src="{{ doc.thumbnail.url }}" alt="">
+          <img src="{{ doc.thumbnail.url }}" alt="" width="240px"
           <br>
           <input type="Hidden" name="doc_id" value="{{ doc.id }}">
           <input type="Hidden" name="user" id="" value="{{ user }}">
-          <h2>{{ doc.title }}</h2>
+          <a href = "{% url 'drafts:details' slug=doc.slug %}" ><h2>{{ doc.title }}</h2></a>
           {% csrf_token %}
-          <input type="submit" name="edit" value="Edit">
+          <button type="submit" name="edit" value="Edit">Edit </button>
           {% csrf_token %}
-          <input type="submit" name="forward" value="Forward">
+          <button type="submit" name="forward" value="Forward">Forward</button>
+          {% csrf_token %}
+          <button type="submit" name="delete" value="Delete">Delete</button>
         </form>
       </div>
 

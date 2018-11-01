@@ -16,18 +16,17 @@
                 {% for doc in docs %}
             <form action="/admins/approve/" method="POST">
                 <center>
-                    <img src="{{ doc.thumbnail.url }}" alt="">
+                    <img src="{{ doc.thumbnail.url }}" alt="" width="640px" height="480px">
                     <br>
-                    <h1>{{ doc.title }}</h1>
+                    <a href = "{% url 'drafts:details' slug=doc.slug %}" ><h1>{{ doc.title }}</h1></a>
                     <br>
                     <input type="Hidden" name="user">
                     <input type="Hidden" value = "{{ doc.id }}" name = "doc_id">
                     {% csrf_token %}
-                    <input type="Submit" value="Approve" name ="approve">
-                    {% csrf_token %}
-                    <input type="Submit" value="View" name ="approve">
+                    <button type="Submit" value="Approve" name ="approve">Approve</button>
+                    
                     {% csrf_token %}    
-                    <input type="Submit" value="Discard" name="discard">
+                    <button type="Submit" value="Discard" name="discard">Discard</button>
         
                     
         

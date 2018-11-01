@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,HttpResponse
 from django.http import HttpResponse
 from .models import Users,User
 import django.contrib.auth as auth
@@ -14,7 +14,9 @@ def login1(request):
         
         u = Users()
         print("The code runs well")
-        u = list(Users.objects.filter(username = request.POST.get('username')))[0]
+        u = list(Users.objects.filter(username = request.POST.get('username')))
+        if u:
+            u = u[0]
         print("The code runs well")
         
         if u.check_password(request.POST.get('password')):
@@ -48,7 +50,7 @@ def signup(request):
         users = Users.objects.filter(username = request.POST.get('username'))
 
         if users:
-            return redirect('/users/login/')
+            return render(request,'users/signup.html', {'username' : request.POST.get('username'), 'name' : request.POST.get('name'), 'message' : 'Username Already Exists'} )
         else:
             u.username = request.POST.get('username')
             u.set_password(request.POST.get('password'))
@@ -62,7 +64,7 @@ def signup(request):
 @login_required(login_url = '/users/login')
 def addmoderator(request):
     if Users.objects.filter(username = get_user(request).username)[0].usertype != 'admin':
-        return redirect('/drafts/articleview/')
+        return HttpResponse('You are not Authorised to access this page')
     else:
         if request.method == "POST":
             print("Do something")
@@ -70,7 +72,7 @@ def addmoderator(request):
             users = Users.objects.filter(username = request.POST.get('username'))
 
             if users:
-                return redirect('/admin/draftsview/')
+                return render(request,'users/modsignup.html', {'username' : request.POST.get('username'), 'name' : request.POST.get('name'), 'message' : 'Username Already Exists'} )
             else:
                 u.username = request.POST.get('username')
                 u.set_password(request.POST.get('password'))
