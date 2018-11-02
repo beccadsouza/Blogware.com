@@ -1,28 +1,109 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
-  <form class="" action="/writer/caterreq/" method="POST">
-    <input type="text" name="Title" id="title" value="{{ doc.title }}" required>
-    <label for="title">Title:</label>
-    <br>
-    <br><br>
+{#<!DOCTYPE html>#}
+{#<html lang="en" dir="ltr">#}
+{#  <head>#}
+{#    <meta charset="utf-8">#}
+{#    <title></title>#}
+{#  </head>#}
+{#  <body>#}
+{#  <form class="" action="/writer/caterreq/" method="POST">#}
+{#    <input type="text" name="Title" id="title" value="{{ doc.title }}" required>#}
+{#    <label for="title">Title:</label>#}
+{#    <br>#}
+{#    <br><br>#}
+{#    <textarea name="Body" id="body" cols="40" rows="10" required>{{ doc.body }}</textarea>#}
+{#    <label for="body">Body:</label>#}
+{#    <br>#}
+{#    <br>#}
+{#    <input type="Hidden" name="user" value="{{ user }}">#}
+{#    <input type="Hidden" name="stance" value="{{ stance }}">#}
+{#    <input type="Hidden" value = "{{ doc.id }}" name = "doc_id">#}
+{#    {% csrf_token %}#}
+{#    <button type="Submit" value="Submit" name="{{ stance }}">Submit</button>#}
+{#  </form>#}
+{#  <p>{{ message }}</p>#}
+{#  </body>#}
+{#</html>#}
 
-    <textarea name="Body" id="body" cols="40" rows="10" required>{{ doc.body }}</textarea>
-    <label for="body">Body:</label>
-    <br>
+{% load static from staticfiles %}
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Writer Edit</title>
 
-    
-    <br>
-    <input type="Hidden" name="user" value="{{ user }}">
-    <input type="Hidden" name="stance" value="{{ stance }}">
-    <input type="Hidden" value = "{{ doc.id }}" name = "doc_id">
-    {% csrf_token %}
-    <button type="Submit" value="Submit" name="{{ stance }}">Submit</button>
-  </form>
-  <p>{{ message }}</p>
-  </body>
+        <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Lora'>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    </head>
+
+    <body background="{% static 'dashboard.png' %}" style="margin: 60px;font-family: Lora,sans-serif">
+        <a href="/users/logout/">
+            <button class="btn right" style="border-radius: 6px">
+                <span style="color: white">
+                    <i class="material-icons" style="vertical-align:middle !important;padding-bottom: 5px;">
+                        exit_to_app
+                    </i>
+                    Logout
+                </span>
+            </button>
+        </a>
+        <a href="/writer/viewdrafts/">
+            <button class="btn right" style="border-radius: 6px;margin-right: 20px">
+                <span style="color: white">
+                    <i class="material-icons" style="vertical-align:middle !important;padding-bottom: 5px;">
+                        arrow_back
+                    </i>
+                    Back to Drafts
+                </span>
+            </button>
+        </a>
+        <div class="row">
+            <h4 style="color: #2cc8b9">
+                Times change, and so does draft content
+                <i class="material-icons" style="font-size: 30px;vertical-align:middle !important;">gesture</i>
+            </h4>
+        </div>
+
+        <div class="container">
+            <div class="row" style="padding: 30px;">
+                <form class="" action="/writer/caterreq/" method="POST">
+                    <div class="row">
+                        <div class="input-field white-text" style="width: 810px">
+                            <i class="material-icons prefix" style="padding-top: 5px">font_download</i>
+                            <input type="text" name="Title" id="title" value="{{ doc.title }}" class="validate" required>
+                            <label for="Name">Title</label>
+                        </div>
+                        <div class="input-field white-text" style="width: 810px">
+                            <i class="material-icons prefix" style="padding-top: 5px">create</i>
+                            <textarea name="Body" id="body" cols="40" rows="10" class="materialize-textarea" required>{{ doc.body }}</textarea>
+                            <label for="body">Body</label>
+
+                        </div>
+                        <div class="file-field input-field white-text" style="width: 765px">
+                            <i class="material-icons prefix" style="padding-top: 5px">image</i>
+                            <input type="file">
+                            <input class="file-path validate" type="text" placeholder="Cover image">
+                        </div>
+                    </div>
+                    <input type="Hidden" name="user" value="{{ user }}">
+                    <input type="Hidden" name="stance" value="{{ stance }}">
+                    <input type="Hidden" value = "{{ doc.id }}" name = "doc_id">
+                    {% csrf_token %}
+                    <button class="waves-effect waves-teal left btn white black-text" style="left: 20px"
+                            type="Submit" value="Submit" name="{{ stance }}">
+                        <span>
+                            Finish
+                        </span>
+                        <i class="material-icons right" style="vertical-align:middle !important;padding-bottom: 5px;">
+                            send
+                        </i>
+                    </button>
+                </form>
+                <p>{{ message }}</p>
+            </div>
+        </div>
+    </body>
 </html>

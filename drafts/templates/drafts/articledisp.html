@@ -1,31 +1,100 @@
-<!DOCTYPE html>
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <meta name="viewport" content="width=device-width, initial-scale=1.0">#}
+{#    <meta http-equiv="X-UA-Compatible" content="ie=edge">#}
+{#    <title>Document</title>#}
+{#</head>#}
+{#<body>#}
+{#    <a href="/users/signup/"><input type="button" value="Sign-up"></a>#}
+{#    <a href="/users/login/"><input type="button" value="Login"></a>#}
+{#    <div>#}
+{#        {% for doc in docs %}#}
+{#        <center>#}
+{#            <img src="{{ doc.thumbnail.url }}" alt=""  width="640px" height="480px">#}
+{#            <br>#}
+{#            <a href = "{% url 'drafts:details' slug=doc.slug %}" ><h1>{{ doc.title }}</h1></a>#}
+{#            <br>#}
+{#        </center>#}
+{#        {% endfor %}#}
+{#    </div>#}
+{#</body>#}
+{#</html>#}
+
+{% load static from staticfiles %}
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Multiple</title>
 
-    <a href="/users/signup/"><input type="button" value="Sign-up"></a>
-    <a href="/users/login/"><input type="button" value="Login"></a>
-    <div>
-        {% for doc in docs %}
-        <center>
-            <img src="{{ doc.thumbnail.url }}" alt=""  width="640px" height="480px">
-            <br>
-            <a href = "{% url 'drafts:details' slug=doc.slug %}" ><h1>{{ doc.title }}</h1></a>
-            <br>
+        <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Lora'>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
-            
+        <style>
 
-        </center>
+            .background-wrap {
+                position: fixed;
+                z-index: -1000;
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+                top: 0;
+                left: 0;
+            }
 
-        {% endfor %}
-        
+            video {
+                position: absolute;
+                top: 0;
+                left: 0;
+                min-height: 100%;
+                min-width: 100%;
+            }
 
+        </style>
+    </head>
+
+    <body style="margin: 60px;font-family: Lora;background-color: #eecbb5">
+    <div class="background-wrap">
+        <video preload="auto" autoplay loop="loop" muted="muted">
+            <source src="{% static 'video.mp4' %}" type="video/mp4">
+            Video not supported
+        </video>
     </div>
-    
-</body>
+        <div class="row" style="text-align: center;background-color: rgba(255,255,255,0.62)">
+            <br>
+            <h4 style="color: #24a89c">
+                SPark, the official newsletter for S.P.I.T.
+                <i class="material-icons" style="font-size: 30px;vertical-align:middle !important;">whatshot</i>
+            </h4>
+            <br>
+        </div>
+
+        <div class="row">
+            {% for doc in docs %}
+            <!-------------------BLOG----------------->
+            <div class="col s12 m4 cards-container">
+                <div class="card">
+                    <div class="card-image">
+                        <img src="{{ doc.thumbnail.url }}">
+                        <a href="{% url 'drafts:details' slug=doc.slug %}" target="_blank" class="btn-floating btn-large halfway-fab waves-effect waves-light teal">
+                            <i class="material-icons">launch</i>
+                        </a>
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title">{{ doc.title }}</span>
+                        <p style="text-align: justify">
+                            {{ doc.snippet }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </body>
 </html>

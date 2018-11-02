@@ -94,7 +94,7 @@
                             <span class="card-title">{{ doc.title }}</span>
                         </a>
                         <p style="text-align: justify">
-                            You’re probably reading this article via the good old internet, however at this very moment 4.3 billion people don’t have any sort of access to the World Wide Web.  While Europe has a connection rate …
+                            {{ doc.snippet }}
                         </p>
                     </div>
                     <input type="Hidden" value = "{{ doc.id }}" name = "doc_id">

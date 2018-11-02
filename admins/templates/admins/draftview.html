@@ -104,14 +104,14 @@
                     <div class="card-content">
                         <a href = "{% url 'drafts:details' slug=doc.slug %}"><span class="card-title">{{ doc.title }}</span></a>
                         <p style="text-align: justify">
-                            You’re probably reading this article via the good old internet, however at this very moment 4.3 billion people don’t have any sort of access to the World Wide Web.  While Europe has a connection rate …
+                            {{ doc.snippet }}
                         </p>
                     </div>
                     <input type="Hidden" value = "{{ doc.id }}" name = "doc_id">
                     <div class="row">
-                        <div class="card-action" style="margin-left:-10px;padding-bottom: 30px;">
+                        <div class="card-action" style="margin-left:35px;padding-bottom: 30px;">
                             {% csrf_token %}
-                            <button class="btn waves-effect white teal-text col s12 m4 z-depth-0" type="submit" value="Approve" name ="approve">
+                            <button class="btn waves-effect white teal-text col s12 m5 z-depth-0" type="submit" value="Approve" name ="approve">
                                 <i class="material-icons" style="vertical-align:middle !important;padding-bottom: 5px">
                                     cloud_upload
                                 </i>
@@ -120,7 +120,7 @@
                                 </span>
                             </button>
                             {% csrf_token %}
-                            <button class="btn waves-effect white teal-text col s12 m4 z-depth-0" type="submit" value="Discard" name="discard">
+                            <button class="btn waves-effect white teal-text col s12 m5 z-depth-0" type="submit" value="Discard" name="discard">
                                 <i class="material-icons" style="vertical-align:middle !important;padding-bottom: 5px;">
                                     delete
                                 </i>

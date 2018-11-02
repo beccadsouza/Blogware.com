@@ -15,3 +15,6 @@ class drafts(models.Model):
 
     def __str__(self):
         return ' '.join(list([self.title, self.slug, str(self.date_of_update), str(self.date_of_publish)]))
+
+    def snippet(self):
+        return self.body[:120] + '...'
