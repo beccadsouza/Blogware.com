@@ -25,7 +25,8 @@ def approve(request):
 
 
 def draftsview(request):
-    return render(request, 'admins/draftview.html', {  'docs' : drafts.objects.filter(status = 3) })
+    user = get_user(request)
+    return render(request, 'admins/draftview.html', {  'docs' : drafts.objects.filter(status = 3), 'user' : user })
         
 
 def draftread(request):

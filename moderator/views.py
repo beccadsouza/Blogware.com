@@ -13,7 +13,7 @@ def draftsview(request):
         return HttpResponse('You are not authorised to access this page')
     else:
         d = drafts.objects.filter(status = 2)
-        user  = request.POST.get('user')
+        user  = get_user(request)
         return render(request, 'moderator/drafts.html', {'docs' : d, 'user': user})
 
     

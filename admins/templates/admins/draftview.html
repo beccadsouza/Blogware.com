@@ -84,14 +84,14 @@
         {% if docs.count != 0 %}
         <div class="row">
             <h4 style="color: #2cc8b9">
-                Howdy Admin,<br><span style="font-size: smaller">here's a list of drafts waiting to be published!</span>
+                Howdy {{ user.first_name }},<br><span style="font-size: smaller">here's a list of drafts waiting to be published!</span>
 {#                <i class="material-icons" style="font-size: 30px;vertical-align:middle !important;">gesture</i>#}
             </h4>
         </div>
         {% else %}
         <div class="row">
             <h4 style="color: #2cc8b9">
-                Howdy Admin,<br><span style="font-size: smaller">no pending drafts......only published drafts <i class="material-icons">sentiment_satisfied_alt</i></span>
+                Howdy {{ user.first_name }},<br><span style="font-size: smaller">no pending drafts......only published drafts <i class="material-icons">sentiment_satisfied_alt</i></span>
             </h4>
         </div>
         {% endif %}

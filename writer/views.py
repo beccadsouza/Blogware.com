@@ -79,7 +79,8 @@ def caterreq(request):#addition and editing the drafts using html
 
 
 def viewdrafts(request):
-    return render(request, 'writer/draftsview.html', { 'docs' : drafts.objects.filter(author = get_user(request).username, status = 1), 'user' : request.POST.get('username') })
+    user = get_user(request)
+    return render(request, 'writer/draftsview.html', { 'docs' : drafts.objects.filter(author = get_user(request).username, status = 1), 'user' : user })
 
 
 def new(request):#addition of new draft with Djangoforms

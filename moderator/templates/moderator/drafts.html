@@ -71,7 +71,7 @@
         {% if docs.count != 0 %}
         <div class="row">
             <h4 style="color: #2cc8b9">
-                Howdy Jane,
+                Howdy {{ user.first_name }},
                 there's a list of drafts awaiting you...
 {#                <i class="material-icons" style="font-size: 30px;vertical-align:middle !important;">spellcheck</i>#}
             </h4>
@@ -79,7 +79,7 @@
         {% else %}
         <div class="row">
             <h4 style="color: #2cc8b9">
-                Howdy Jane, no pending drafts right now.
+                Howdy {{ user.first_name }}, no pending drafts right now.
 {#                <i class="material-icons" style="font-size: 30px;vertical-align:middle !important;">spellcheck</i>#}
             </h4>
         </div>
