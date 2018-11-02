@@ -85,7 +85,8 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Add Moderator</title>
+        <title>Blogware</title>
+        <link rel="icon" href="{% static 'blogo.png' %}">
 
         <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Lora'>
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -122,10 +123,16 @@
     </head>
 
     <body background="{% static 'constellations.gif' %}" style="font-family: Lora;margin: 60px;background-repeat: no-repeat;background-position: center;background-size: cover">
-
+        <br>
+        <h4 class="white-text center-align">
+            <span style="background-color:rgba(27,11,40,0.7);">
+                With great power comes great responsibility
+                <i class="material-icons" style="font-size: larger;vertical-align:middle !important;padding-bottom: 5px;">supervisor_account</i>
+            </span>
+        </h4>
+        <br>
         <div class="container">
             <div class="row" style="width: 50%;padding: 30px;background-color: rgba(255,255,255,0.6)">
-                <br><br>
                 <div style="text-align: center;">
                     <form action="/users/addmoderator/" method="POST" onsubmit="return checkForm(this);">
                         <div class="row">
@@ -157,13 +164,13 @@
                         {% csrf_token %}
                         <button class="waves-effect waves-light btn" style="background-color: rgba(27,11,40,0.8);" type="Submit" value="Sign-up">
                             <i class="material-icons left" style="vertical-align:middle !important;padding-bottom: 5px;">
-                                add
+                                add_box
                             </i>
                             <span>
                                 Add Moderator
                             </span>
                         </button>
-                        <br><br>
+                        <br>
                     </form>
                     <p>{{ message }}</p>
                 </div>

@@ -48,7 +48,8 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Moderator</title>
+        <title>Blogware</title>
+        <link rel="icon" href="{% static 'blogo.png' %}">
 
         <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Lora'>
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -67,15 +68,22 @@
                 </span>
             </button>
         </a>
-
+        {% if docs.count != 0 %}
         <div class="row">
             <h4 style="color: #2cc8b9">
                 Howdy Jane,
-                there's a list of drafts awaiting you..
-                <i class="material-icons" style="font-size: 30px;vertical-align:middle !important;">gesture</i>
+                there's a list of drafts awaiting you...
+{#                <i class="material-icons" style="font-size: 30px;vertical-align:middle !important;">spellcheck</i>#}
             </h4>
         </div>
-
+        {% else %}
+        <div class="row">
+            <h4 style="color: #2cc8b9">
+                Howdy Jane, no pending drafts right now.
+{#                <i class="material-icons" style="font-size: 30px;vertical-align:middle !important;">spellcheck</i>#}
+            </h4>
+        </div>
+        {% endif %}
         <div class="row">
             <!-----------------MODERATOR-------------->
             {% for doc in docs %}
@@ -90,7 +98,7 @@
                         </a>
                     </div>
                     <div class="card-content">
-                        <a href = "{% url 'drafts:details' slug=doc.slug %}">
+                        <a href = "{% url 'drafts:details' slug=doc.slug %}" target="_blank">
                             <span class="card-title">{{ doc.title }}</span>
                         </a>
                         <p style="text-align: justify">

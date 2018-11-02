@@ -50,7 +50,8 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Admin</title>
+        <title>Blogware</title>
+        <link rel="icon" href="{% static 'blogo.png' %}">
 
         <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Lora'>
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -70,7 +71,7 @@
             </button>
         </a>
 
-        <a href="/users/addmoderator/">
+        <a href="/users/addmoderator/" target="_blank">
             <button class="btn right" style="border-radius: 6px;margin-right: 20px" type="submit" name="newdraft" value="New Draft">
                 <span style="color: white">
                     <i class="material-icons" style="vertical-align:middle !important;padding-bottom: 5px;">
@@ -80,15 +81,20 @@
                 </span>
             </button>
         </a>
-
+        {% if docs.count != 0 %}
         <div class="row">
             <h4 style="color: #2cc8b9">
-                Howdy Jane,
-                tis a great day to pen a draft
-                <i class="material-icons" style="font-size: 30px;vertical-align:middle !important;">gesture</i>
+                Howdy Admin,<br><span style="font-size: smaller">here's a list of drafts waiting to be published!</span>
+{#                <i class="material-icons" style="font-size: 30px;vertical-align:middle !important;">gesture</i>#}
             </h4>
         </div>
-
+        {% else %}
+        <div class="row">
+            <h4 style="color: #2cc8b9">
+                Howdy Admin,<br><span style="font-size: smaller">no pending drafts......only published drafts <i class="material-icons">sentiment_satisfied_alt</i></span>
+            </h4>
+        </div>
+        {% endif %}
         <div class="row">
             <!------------------ADMIN----------------->
             {% for doc in docs %}
@@ -102,7 +108,7 @@
                         </a>
                     </div>
                     <div class="card-content">
-                        <a href = "{% url 'drafts:details' slug=doc.slug %}"><span class="card-title">{{ doc.title }}</span></a>
+                        <a href = "{% url 'drafts:details' slug=doc.slug %}" target="_blank"><span class="card-title">{{ doc.title }}</span></a>
                         <p style="text-align: justify">
                             {{ doc.snippet }}
                         </p>

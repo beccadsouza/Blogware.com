@@ -31,7 +31,8 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Writer Edit</title>
+        <title>Blogware</title>
+        <link rel="icon" href="{% static 'blogo.png' %}">
 
         <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Lora'>
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -60,32 +61,44 @@
                 </span>
             </button>
         </a>
+        {% if stance == "edit" %}
+        <div class="row">
+            <h5 style="color: #2cc8b9">
+{#                Times change, and so does draft content :(#}
+                "I'm all for the scissors. I believe more in the scissors than I do in the pencil."
+                <span style="font-size: smaller"> - Truman Capote</span>
+{#                <i class="material-icons" style="font-size: 30px;vertical-align:middle !important;">gesture</i>#}
+            </h5>
+        </div>
+        {% else %}
         <div class="row">
             <h4 style="color: #2cc8b9">
-                Times change, and so does draft content
+                Howdy Jane,
+                tis a great day to pen a draft
                 <i class="material-icons" style="font-size: 30px;vertical-align:middle !important;">gesture</i>
             </h4>
         </div>
-
+        {% endif %}
         <div class="container">
             <div class="row" style="padding: 30px;">
                 <form class="" action="/writer/caterreq/" method="POST">
                     <div class="row">
                         <div class="input-field white-text" style="width: 810px">
                             <i class="material-icons prefix" style="padding-top: 5px">font_download</i>
-                            <input type="text" name="Title" id="title" value="{{ doc.title }}" class="validate" required>
+                            <input type="text" name="Title" id="title" value="{{ doc.title }}" class="white-text" required>
                             <label for="Name">Title</label>
                         </div>
                         <div class="input-field white-text" style="width: 810px">
                             <i class="material-icons prefix" style="padding-top: 5px">create</i>
-                            <textarea name="Body" id="body" cols="40" rows="10" class="materialize-textarea" required>{{ doc.body }}</textarea>
+                            <textarea name="Body" id="body" cols="40" rows="10" class="materialize-textarea white-text" required>{{ doc.body }}</textarea>
                             <label for="body">Body</label>
 
                         </div>
                         <div class="file-field input-field white-text" style="width: 765px">
                             <i class="material-icons prefix" style="padding-top: 5px">image</i>
                             <input type="file">
-                            <input class="file-path validate" type="text" placeholder="Cover image">
+                            <input class="file-path validate" type="text"
+                                   placeholder="cover image" style="border: none;padding-top:5px">
                         </div>
                     </div>
                     <input type="Hidden" name="user" value="{{ user }}">
@@ -95,7 +108,7 @@
                     <button class="waves-effect waves-teal left btn white black-text" style="left: 20px"
                             type="Submit" value="Submit" name="{{ stance }}">
                         <span>
-                            Finish
+                            Update
                         </span>
                         <i class="material-icons right" style="vertical-align:middle !important;padding-bottom: 5px;">
                             send

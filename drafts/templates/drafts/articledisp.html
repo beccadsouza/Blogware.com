@@ -29,11 +29,12 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Multiple</title>
+        <title>SPark</title>
 
         <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Lora'>
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <link rel="icon" href="{% static 'logo.PNG' %}">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
         <style>
@@ -87,7 +88,8 @@
                         </a>
                     </div>
                     <div class="card-content">
-                        <span class="card-title">{{ doc.title }}</span>
+                        <br>
+                        <span class="card-title center-align teal-text">{{ doc.title }}</span>
                         <p style="text-align: justify">
                             {{ doc.snippet }}
                         </p>
